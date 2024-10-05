@@ -1,26 +1,30 @@
-package barbeirosdorminhocos;
-
 public class Cliente extends Pessoa implements Runnable{
 	
 	private Barbearia barbearia;
 	
-	public Cliente (int id) {
+	public Cliente (int id, Barbearia barbearia) {
 		super(id);
+		this.barbearia =  barbearia;
 	}
 	
-	public void run (int barbeirosAtendendo, int quantBarbeiros, long[]fila) {
+	public void run () {
 		while (true) {
-			if (barbearia.cortaCabelo(this) == true) {
-				
-				System.out.println("Cliente " + id + " esperando corte...");
-				
-				synchronized (this) {
-					this.wait();
+			try {
+				if (barbearia.cortaCabelo(this)) {
+
+					System.out.println("Cliente " + this.getID() + " esperando corte...");
+
+					synchronized (this) {
+						this.wait();
+					}
+					return;
+				} else {
+					System.out.println("Cliente " + this.getID() + " tentou entrar na barbearia, mas está lotada... indo dar uma voltinha");
+
 				}
 			}
-			else {
-				System.out.println("Cliente " + id + " tentou entrar na barbearia, mas está lotada... indo dar uma voltinha");
-				
+			catch(InterruptedException IE){
+				IE.printStackTrace();
 			}
 			
 		}

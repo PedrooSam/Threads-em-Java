@@ -1,5 +1,3 @@
-package barbeirosdorminhocos;
-
 public class Pessoa extends Thread{
 	
 	private final int id;
@@ -9,7 +7,7 @@ public class Pessoa extends Thread{
 	}
 
 
-	public long getId () {
+	public long getID () {
 		return id;
 	}
 }

@@ -1,11 +1,8 @@
-package barbeirosdorminhocos;
-
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.LinkedList;
 
 public class Barbearia {
-	
-	private int barbeirosAtendendo = 0;
+
 	private int quantBarbeiros;
 	private int tamanhoFila;
 	
@@ -31,7 +28,7 @@ public class Barbearia {
 	
 	public synchronized Cliente proximoCliente () {
 		
-		if (fila.peek() != null && clientesCortando.size() <= quantBarbeiros) {
+		if (fila.peek() != null && clientesCortando.size() < quantBarbeiros) {
 			clientesCortando.add(fila.peek());
 		}
 		return fila.poll();
@@ -40,6 +37,6 @@ public class Barbearia {
 	public synchronized void corteTerminado (Cliente c) {
 		
 		clientesCortando.remove(c);
-	}
 
+	}
 }

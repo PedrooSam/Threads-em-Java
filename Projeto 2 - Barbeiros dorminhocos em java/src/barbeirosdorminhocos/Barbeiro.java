@@ -1,5 +1,3 @@
-package barbeirosdorminhocos;
-
 public class Barbeiro extends Pessoa implements Runnable{
 	
 	private Barbearia barbearia;
@@ -14,15 +12,16 @@ public class Barbeiro extends Pessoa implements Runnable{
 		while(true) {
 			try {
 				Cliente cli = barbearia.proximoCliente();
+
 				
 				if(cli != null) {
 					
-					if (dormindo) {
+					if (dormindo == true) {
 						dormindo = false;
-						System.out.println("Barbeiro " + id + " acordou! Começando os trabalhos!");
+						System.out.println("Barbeiro " + this.getId() + " acordou! Começando os trabalhos!");
 					}
 					
-					System.out.println("Cliente " + cli.getId() + " cortando cabelo com Barbeiro " + id);
+					System.out.println("Cliente " + cli.getId() + " cortando cabelo com Barbeiro " + cli.getId());
 					
 					Thread.sleep(1);
 					
@@ -31,7 +30,7 @@ public class Barbeiro extends Pessoa implements Runnable{
 					barbearia.corteTerminado(cli);
 				}
 				else {
-					System.out.println("Barbeiro " + id + " indo dormir um pouco... não há clientes na barbearia...");
+					System.out.println("Barbeiro " + this.getId() + " indo dormir um pouco... não há clientes na barbearia...");
 					dormindo = true;
 					
 					synchronized(this){
@@ -40,8 +39,8 @@ public class Barbeiro extends Pessoa implements Runnable{
 					
 				}
 				
-			}catch (InterruptedException e){
-				e.printStackTrace();
+			}catch (InterruptedException IE){
+				IE.printStackTrace();
 			}
 		}
 		
